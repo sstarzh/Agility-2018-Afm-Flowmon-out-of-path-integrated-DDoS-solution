@@ -1,0 +1,346 @@
+Contents
+========
+
+`Contents 1 <#contents>`__
+
+`Overview 2 <#overview>`__
+
+`Pre-requisites 2 <#pre-requisites>`__
+
+`Deployment use case 2 <#deployment-use-case>`__
+
+`Lab blueprint setup 2 <#lab-blueprint-setup>`__
+
+`Blueprint deployment and Configuration
+3 <#blueprint-deployment-and-configuration>`__
+
+`Login Credentials 3 <#login-credentials>`__
+
+`Licensing 3 <#licensing>`__
+
+`Other considerations 3 <#other-considerations>`__
+
+`DDoS attack preparation 4 <#ddos-attack-preparation>`__
+
+`Prepare traffic visualization and monitoring
+4 <#prepare-traffic-visualization-and-monitoring>`__
+
+`Initiate DDoS attack 5 <#initiate-ddos-attack>`__
+
+`Run SYN flood (hping3) from Attacker VM
+5 <#run-syn-flood-hping3-from-attacker-vm>`__
+
+`DDoS mitigation start 6 <#ddos-mitigation-start>`__
+
+`BGP route change and traffic drop
+6 <#bgp-route-change-and-traffic-drop>`__
+
+`AFM DDoS profile and virtual server
+7 <#afm-ddos-profile-and-virtual-server>`__
+
+`AFM DDoS mitigation 7 <#afm-ddos-mitigation>`__
+
+`Attack stop 8 <#attack-stop>`__
+
+`Stop SYN flood 8 <#stop-syn-flood>`__
+
+`Mitigation stop 8 <#mitigation-stop>`__
+
+`AFM configuration, BGP route removal
+9 <#afm-configuration-bgp-route-removal>`__
+
+Overview
+========
+
+Pre-requisites
+--------------
+
+Lab assumes that customer is familiar with basic networking concepts and
+F5 BIG-IP AFM or DHD, and has a basic understanding of flow-based DDoS
+detection
+
+No Flowmon platform knowledge is required.
+
+Deployment use case
+-------------------
+
+A Joint F5 + Flowmon solution is deployed “out-of-path” and provides an
+out-of-band DDoS mitigation of L3-4 volumetric DDoS attacks. It’s a
+simple and convenient solution that leverages the existing IT
+infrastructure to provide traffic flow information.
+
+Flowmon Collector appliance receives NetFlow/sFlow/IPFIX from edge
+routers while Flowmon DDoS Defender uses i/eBGP/Flowspec to route the
+traffic to F5 DHD/AFM appliance. F5 DHD/AFM DDoS profile, VS and other
+parameters provisioned dynamically through iControl REST.
+
+|image0|
+
+Pic.1 Solution Diagram
+
+Lab blueprint setup
+-------------------
+
+Lab blueprint is deployed in Oracle Ravello cloud with access from F5
+UDF portal. All Flowmon elements are pre-configured, F5 AFM VE resources
+are provisioned and network is configured.
+
+|image1|
+
+Pic.2 Lab blueprint
+
+Blueprint deployment and Configuration
+======================================
+
+Login Credentials
+-----------------
+
+Please note the login credentials used to access lab elements
+
+Flowmon UI: admin/admin
+
+BIG-IP AFM TMUI: admin/admin
+
+Web server console login Xubuntu/default
+
+Attacker VM SSH: f5admin/f5admin
+
+Router VMs SSH: vyos/vyos
+
+Licensing
+---------
+
+BIG-IP is licensed automatically.
+
+Evaluation license has been applied to Flowmon Collector/DDoS Defender.
+Please contact Lab admin if there are issues with any lab elements.
+
+Other considerations
+--------------------
+
+Router1 is configured to export sFlow with sampling rate of 1
+
+Learn about sFlow:
+
+https://sflow.org
+
+DDoS attack preparation
+=======================
+
+Prepare traffic visualization and monitoring
+--------------------------------------------
+
+-  Open SSH connections to Router1 and Router2
+
+-  Verify Router1 BGP configuration
+
+    |image2|
+
+-  Start interface monitoring in Router1 and Router2
+
+|image3|\ |image4|\ |image5|
+
+|image6|
+
+-  Select *eth1* and press *‘g’* to enable graphic mode
+
+-  Open DoS Visibility Dashboard in AFM TMUI
+
+    |image7|
+
+-  Open DDoS Defender->Attack List in Flowmon WebUI
+
+    |image8|
+
+Initiate DDoS attack
+====================
+
+Run SYN flood (hping3) from Attacker VM
+---------------------------------------
+
+-  From Attacker VM SSH session run SYN flood towards Web server
+
+    Run *‘syn\_flood’* script
+
+    |image9|
+
+-  Observe traffic growth in both Router1 and Router2. After 10-15
+   seconds traffic will drop in Router2 due to DDoS detection and
+   mitigation start
+
+    |image10|
+
+DDoS mitigation start
+---------------------
+
+An *ACTIVE* attack with the new ID will appear in Flowmon DDoS defender
+‘Active attacks’ screen. Flowmon dynamically provisions AFM DDoS profile
+and VS, and initiates traffic diversion to AFM using BGP advertisement
+
+|image11|
+
+|image12|
+
+BGP route change and traffic drop
+---------------------------------
+
+-  Router1 shows new route to protected *10.1.30.0/24* subnet
+
+    Type *‘show ip bgp’*
+
+    |image13|
+
+-  As traffic is being routed through AFM, Router2 shows no significant
+   network activity while Router1 still experiences high traffic load
+
+    |image14|
+
+AFM DDoS profile and virtual server
+-----------------------------------
+
+Flowmon is using iControl REST interface to provision necessary
+parameters in AFM
+
+-  Navigate to Security->DoS protection->DoS profiles and confirm that
+   the DoS profile has been provisioned for the protected subnet
+
+    |image15|
+
+-  In Local Traffic->Virtual Servers->Virtual Server List confirm that
+   VS with corresponding Attack ID has been created
+
+    |image16|
+
+AFM DDoS mitigation
+-------------------
+
+In AFM TMUI navigate to Security->DoS Protection-> DoS Overview and
+confirm that AFM is performing DoS mitigation using the provisioned DoS
+profile
+
+|image17|
+
+Attack stop
+===========
+
+Stop SYN flood
+--------------
+
+Press ‘CTRL-C’ to finish the attack. Traffic will drop on Router1
+
+|image18|
+
+Mitigation stop
+---------------
+
+Flowmon DDoS Defender Attack List screen shows the current attack with
+status *NOT ACTIVE*. Attack will transition to *ENDED* state when
+Flowmon performs *Mitigation Stop* routine
+
+|image19|
+
+|image20|
+
+|image21|
+
+\*It typically takes ~ 5min for Flowmon DDoS Defender to update attack
+status
+
+AFM configuration, BGP route removal
+------------------------------------
+
+As part of *Mitigation Stop* routine Flowmon removes BGP route from
+Router1 and Virtual Server and DDoS Profile from AFM
+
+‘show ip bgp’
+
+|image22|
+
+In AFM TMUI navigate to Security->DoS Protection->DoS Profiles
+
+Verify that only default “dos” profile present
+
+|image23|
+
+In AFM TMUI navigate to Local Traffic->Virtual Servers->Virtual Server
+List
+
+Verify that Virtual Server matching Attack ID has been removed
+
+|image24|
+
+.. |image0| image:: media/image1.png
+   :width: 5.81557in
+   :height: 2.68970in
+.. |image1| image:: media/image2.png
+   :width: 6.29496in
+   :height: 3.51537in
+.. |image2| image:: media/image3.png
+   :width: 4.24183in
+   :height: 1.28770in
+.. |image3| image:: media/image4.png
+   :width: 2.83958in
+   :height: 0.11250in
+.. |image4| image:: media/image5.png
+   :width: 3.06458in
+   :height: 0.14444in
+.. |image5| image:: media/image6.png
+   :width: 2.87153in
+   :height: 1.65278in
+.. |image6| image:: media/image7.png
+   :width: 2.85972in
+   :height: 1.65278in
+.. |image7| image:: media/image8.png
+   :width: 4.70054in
+   :height: 2.47431in
+.. |image8| image:: media/image9.png
+   :width: 6.50000in
+   :height: 1.75347in
+.. |image9| image:: media/image10.png
+   :width: 5.58633in
+   :height: 0.63562in
+.. |image10| image:: media/image11.png
+   :width: 5.71583in
+   :height: 1.66406in
+.. |image11| image:: media/image12.png
+   :width: 6.37770in
+   :height: 1.11133in
+.. |image12| image:: media/image13.png
+   :width: 3.42753in
+   :height: 2.36920in
+.. |image13| image:: media/image14.png
+   :width: 4.48611in
+   :height: 1.54167in
+.. |image14| image:: media/image15.png
+   :width: 4.29792in
+   :height: 2.14299in
+.. |image15| image:: media/image16.png
+   :width: 6.50000in
+   :height: 0.96389in
+.. |image16| image:: media/image17.png
+   :width: 6.50000in
+   :height: 1.01389in
+.. |image17| image:: media/image18.png
+   :width: 6.50000in
+   :height: 2.12917in
+.. |image18| image:: media/image19.png
+   :width: 2.99674in
+   :height: 1.71753in
+.. |image19| image:: media/image20.png
+   :width: 6.50000in
+   :height: 0.84028in
+.. |image20| image:: media/image21.png
+   :width: 6.50000in
+   :height: 0.81667in
+.. |image21| image:: media/image22.png
+   :width: 2.99603in
+   :height: 2.05713in
+.. |image22| image:: media/image23.png
+   :width: 4.47222in
+   :height: 1.45833in
+.. |image23| image:: media/image24.png
+   :width: 6.50000in
+   :height: 1.19097in
+.. |image24| image:: media/image25.png
+   :width: 6.50000in
+   :height: 0.78819in

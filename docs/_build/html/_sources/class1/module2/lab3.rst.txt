@@ -1,0 +1,48 @@
+Attack stop
+===========
+
+Stop SYN flood
+--------------
+
+Press ‘CTRL-C’ to finish the attack. Traffic will drop on Router1
+
+|image18|
+
+Mitigation stop
+---------------
+
+Flowmon DDoS Defender Attack List screen shows the current attack with
+status *NOT ACTIVE*. Attack will transition to *ENDED* state when
+Flowmon performs *Mitigation Stop* routine
+
+|image19|
+
+|image20|
+
+|image21|
+
+\*It typically takes ~ 5min for Flowmon DDoS Defender to update attack
+status
+
+AFM configuration, BGP route removal
+------------------------------------
+
+As part of *Mitigation Stop* routine Flowmon removes BGP route from
+Router1 and Virtual Server and DDoS Profile from AFM
+
+‘show ip bgp’
+
+|image22|
+
+In AFM TMUI navigate to Security->DoS Protection->DoS Profiles
+
+Verify that only default “dos” profile present
+
+|image23|
+
+In AFM TMUI navigate to Local Traffic->Virtual Servers->Virtual Server
+List
+
+Verify that Virtual Server matching Attack ID has been removed
+
+|image24|

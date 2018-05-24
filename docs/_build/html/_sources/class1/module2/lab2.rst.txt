@@ -1,0 +1,67 @@
+Initiate DDoS attack
+====================
+
+Run SYN flood (hping3) from Attacker VM
+---------------------------------------
+
+-  From Attacker VM SSH session run SYN flood towards Web server
+
+    Run *‘syn\_flood’* script
+
+    |image9|
+
+-  Observe traffic growth in both Router1 and Router2. After 10-15
+   seconds traffic will drop in Router2 due to DDoS detection and
+   mitigation start
+
+    |image10|
+
+DDoS mitigation start
+---------------------
+
+An *ACTIVE* attack with the new ID will appear in Flowmon DDoS defender
+‘Active attacks’ screen. Flowmon dynamically provisions AFM DDoS profile
+and VS, and initiates traffic diversion to AFM using BGP advertisement
+
+|image11|
+
+|image12|
+
+BGP route change and traffic drop
+---------------------------------
+
+-  Router1 shows new route to protected *10.1.30.0/24* subnet
+
+    Type *‘show ip bgp’*
+
+    |image13|
+
+-  As traffic is being routed through AFM, Router2 shows no significant
+   network activity while Router1 still experiences high traffic load
+
+    |image14|
+
+AFM DDoS profile and virtual server
+-----------------------------------
+
+Flowmon is using iControl REST interface to provision necessary
+parameters in AFM
+
+-  Navigate to Security->DoS protection->DoS profiles and confirm that
+   the DoS profile has been provisioned for the protected subnet
+
+    |image15|
+
+-  In Local Traffic->Virtual Servers->Virtual Server List confirm that
+   VS with corresponding Attack ID has been created
+
+    |image16|
+
+AFM DDoS mitigation
+-------------------
+
+In AFM TMUI navigate to Security->DoS Protection-> DoS Overview and
+confirm that AFM is performing DoS mitigation using the provisioned DoS
+profile
+
+|image17|

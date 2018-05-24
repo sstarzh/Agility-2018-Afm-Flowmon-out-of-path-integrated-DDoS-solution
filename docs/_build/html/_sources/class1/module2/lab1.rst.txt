@@ -1,0 +1,24 @@
+Prepare traffic visualization and monitoring
+============================================
+
+-  Open SSH connections to Router1 and Router2
+
+-  Verify Router1 BGP configuration
+
+    |image2|
+
+-  Start interface monitoring in Router1 and Router2
+
+|image3|\ |image4|\ |image5|
+
+|image6|
+
+-  Select *eth1* and press *‘g’* to enable graphic mode
+
+-  Open DoS Visibility Dashboard in AFM TMUI
+
+    |image7|
+
+-  Open DDoS Defender->Attack List in Flowmon WebUI
+
+    |image8|
