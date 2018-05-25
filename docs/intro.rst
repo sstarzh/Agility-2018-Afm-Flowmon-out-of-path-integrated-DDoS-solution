@@ -40,7 +40,7 @@ components:
         - **Users:** 10.1.10.30
         - **Internal:** 10.1.20.30
         - **Servers:** 10.1.30.30
-      - RDP ``f5student``/``f5student``
+      - RDP ``ubuntu``/``ubuntu``
     * - BIG-IP AFM
       - - **Management:** 10.1.1.7
         - **Internal:** 10.1.20.245
@@ -67,5 +67,3 @@ components:
       - - **Management:** 10.1.1.6
         - **Servers:** 10.1.30.252
       - ssh ``f5admin``/``f5admin``
-
-
