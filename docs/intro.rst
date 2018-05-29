@@ -14,9 +14,9 @@ Lab Topology
 
 The following components have been included in your lab environment:
 
-- 1 x F5 BIG-IP AFM VE (v13.1.0.4)
-- 2 x vyOS routers (v1.8)
-- 1 x Flowmon Collector/DDoS Defender (v9.0)
+- 1 x F5 BIG-IP AFM VE (v13.1.0.6)
+- 2 x vyOS routers (v1.1.8)
+- 1 x Flowmon Collector (v9.01.04)/DDoS Defender (v4.01.00)
 - 1 x Linux Webserver (Ubuntu 16.04)
 - 1 x Xubuntu jumphost (v17)
 - 1 x Attacker (Ubuntu 16.04)
