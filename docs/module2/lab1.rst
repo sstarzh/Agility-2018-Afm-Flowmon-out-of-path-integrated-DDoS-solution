@@ -1,7 +1,9 @@
 Prepare traffic visualization and monitoring
 ============================================
 
--  Open SSH connections to Router1 and Router2
+- Connect to Ubuntu jumphost using RDP 
+
+- Open SSH connections to Router1 and Router2
 
 -  Verify Router1 BGP configuration
     ``show ip bgp``
