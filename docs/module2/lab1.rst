@@ -1,7 +1,7 @@
 Prepare traffic visualization and monitoring
 ============================================
 
-- Connect to Ubuntu jumphost using RDP 
+- Connect to Ubuntu jumphost using RDP
 
 - Open SSH connections to Router1 and Router2
 
@@ -33,18 +33,18 @@ Prepare traffic visualization and monitoring
     |image9|
 
 .. NOTE:: Disregard any active alarms Flowmon may show in the upper right screen corner. These are artifcts of this lab environment
- 
-.. |image3| image:: images/image3.png 
+
+.. |image3| image:: images/image3.png
    :scale: 60%
 .. |image4| image:: images/image4.png
    :scale: 55%
 .. |image5| image:: images/image5.png
-   :scale: 55% 
+   :scale: 55%
 .. |image6| image:: images/image6.png
    :scale: 55%
 .. |image7| image:: images/image7.png
-   :scale: 55% 
+   :scale: 55%
 .. |image8| image:: images/image8.png
    :scale: 60%
 .. |image9| image:: images/image9.png
-   :scale: 50% 
+   :scale: 50%
