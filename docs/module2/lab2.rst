@@ -46,8 +46,7 @@ BGP route change and traffic drop
 AFM DDoS profile and virtual server
 -----------------------------------
 
-.. NOTE:: Flowmon uses iControl REST interface to provision necessary
-parameters in AFM
+.. NOTE:: Flowmon uses iControl REST interface to provision necessary parameters in AFM
 
 -  In AFM TMUI Navigate to **Security --> DoS protection --> DoS profiles** and confirm that
    the DoS profile has been provisioned for the protected subnet
