@@ -8,7 +8,7 @@ Press (``Ctrl-C``) to finish the attack. Traffic will drop on Router1
 
 |image19|
 
-.. NOTE:: STOP HERE. It will take 5-10 minutes for Flowmon to mark the attack as `NOT ACTIVE`. This is done in order to avoid 'flip-flop' effect in repeating attack situation
+.. NOTE:: STOP HERE. It will take 5-10 minutes for Flowmon to mark the attack as `NOT ACTIVE`. This is done in order to avoid 'flip-flop' effect in repeated attack situation
 
 Mitigation stop
 ---------------

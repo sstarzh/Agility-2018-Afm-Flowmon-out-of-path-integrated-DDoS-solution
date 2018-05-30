@@ -4,7 +4,9 @@ Initiate DDoS attack
 Run SYN flood (hping3) from Attacker VM
 ---------------------------------------
 
--  From Attacker VM SSH session run SYN flood towards Web server
+- Click on **Attacker SSH** icon to open ``Attacker VM`` ssh session 
+
+- From Attacker VM run SYN flood towards Web server
 
     ``./syn_flood``
 
@@ -44,10 +46,10 @@ BGP route change and traffic drop
 AFM DDoS profile and virtual server
 -----------------------------------
 
-Flowmon is using iControl REST interface to provision necessary
+.. NOTE:: Flowmon uses iControl REST interface to provision necessary
 parameters in AFM
 
--  Navigate to **Security --> DoS protection --> DoS profiles** and confirm that
+-  In AFM TMUI Navigate to **Security --> DoS protection --> DoS profiles** and confirm that
    the DoS profile has been provisioned for the protected subnet
 
     |image16|
@@ -67,6 +69,7 @@ profile
 |image18|
 
 .. NOTE:: `Statistics -> DoS Visibility` TMUI menu provides graphical attack data
+It may take up to ~5 minutes for DoS Visibility Dashboard to show our simulated DDoS attack. You may need to click `Refresh` for data to appear
 
 |image26|
 
