@@ -49,6 +49,8 @@ Verify that Virtual Server matching Attack ID has been removed
 
 |image25|
 
+Congratulations! You have successfully completed the lab!
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. |image19| image:: images/image19.png
    :scale: 50%
