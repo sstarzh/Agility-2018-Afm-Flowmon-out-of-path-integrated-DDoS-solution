@@ -5,7 +5,7 @@ Please follow the instructions provided by the instructor to start your
 lab and access your jump host.
 
 .. NOTE::
-	 All work for this lab will be performed exclusively from the Ubuntu
+	 All work for this lab will be performed exclusively from the Windows
 	 jumphost. No installation or interaction with your local system is
 	 required.
 
@@ -18,7 +18,7 @@ The following components have been included in your lab environment:
 - 2 x vyOS routers (v1.1.8)
 - 1 x Flowmon Collector (v9.01.04)/DDoS Defender (v4.01.00)
 - 1 x Webserver (Ubuntu 16.04)
-- 1 x Jumphost (Ubuntu 14.04)
+- 1 x Jumphost (Windows 7)
 - 1 x Attacker (Ubuntu 16.04)
 
 Lab Components

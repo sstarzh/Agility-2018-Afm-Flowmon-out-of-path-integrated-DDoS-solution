@@ -1,7 +1,7 @@
 Prepare traffic visualization and monitoring
 ============================================
 
-- Connect to Ubuntu jumphost using RDP
+- Connect to Windows jumphost using RDP
 
 - Open SSH connections to Router1 and Router2
 
