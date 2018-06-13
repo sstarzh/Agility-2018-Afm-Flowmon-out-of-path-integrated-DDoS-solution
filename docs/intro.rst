@@ -38,7 +38,7 @@ components:
     * - Jumphost
       - - **Management:** 10.1.1.199
         - **Users:** 10.1.10.30
-        - **Internal:** 10.1.20.30
+        - **Internal:** 10.1.20.30 
         - **Servers:** 10.1.30.30
       - RDP ``external_user``/``P@ssw0rd!``
     * - BIG-IP AFM
