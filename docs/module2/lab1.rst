@@ -13,8 +13,9 @@ Prepare traffic visualization and monitoring
 -  Start interface monitoring in Router1 and Router2
 ``monitor interfaces ethernet``
 
-    |image5|\ |image6|\ |image4|\
-
+    |image5|
+    |image6|
+    |image4|
     |image7|
 
 -  Select *eth1* and press ``g`` to enable graphical statistics
